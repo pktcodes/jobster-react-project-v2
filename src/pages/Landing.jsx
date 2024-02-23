@@ -14,9 +14,10 @@ const Landing = () => {
             job <span>tracking</span> app
           </h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia,
-            quisquam eius mollitia unde rerum iste nisi ad voluptates ducimus
-            nostrum.
+            Organize your job search with ease and efficiency. Whether you’re
+            looking for a new job or a career change, this app helps you stay on
+            top of your opportunities. Track your job applications, follow up
+            with employers, and interviews.
           </p>
           <button className="btn btn-hero">Login/Register</button>
         </div>
