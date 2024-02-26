@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
-import logo from '../assets/images/logo.svg';
 import heroImage from '../assets/images/main.svg';
+import { Logo } from '../components';
 
 const Landing = () => {
   return (
     <Wrapper>
       {/* NAVBAR */}
       <nav>
-        <img src={logo} alt="Jobster Logo" className="logo" />
+        <Logo />
       </nav>
 
       {/* HERO */}
