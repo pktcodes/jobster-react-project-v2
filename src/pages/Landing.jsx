@@ -1,15 +1,19 @@
 import styled from 'styled-components';
+
 import logo from '../assets/images/logo.svg';
 import heroImage from '../assets/images/main.svg';
 
 const Landing = () => {
   return (
     <Wrapper>
+      {/* NAVBAR */}
       <nav>
-        <img src={logo} alt="Jobster Logo" />
+        <img src={logo} alt="Jobster Logo" className="logo" />
       </nav>
+
+      {/* HERO */}
       <div className="container page">
-        {/* Info */}
+        {/* INFO */}
         <div className="info">
           <h1>
             job <span>tracking</span> app
@@ -23,6 +27,7 @@ const Landing = () => {
           <button className="btn btn-hero">Login/Register</button>
         </div>
 
+        {/* IMAGE */}
         <img src={heroImage} alt="Hero Image" className="img main-img" />
       </div>
     </Wrapper>
