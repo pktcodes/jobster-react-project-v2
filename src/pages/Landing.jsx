@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import heroImage from '../assets/images/main.svg';
@@ -24,7 +25,9 @@ const Landing = () => {
             top of your opportunities. Track your job applications, follow up
             with employers, and interviews.
           </p>
-          <button className="btn btn-hero">Login/Register</button>
+          <Link to="/register" className="btn btn-hero">
+            Login/Register
+          </Link>
         </div>
 
         {/* IMAGE */}
