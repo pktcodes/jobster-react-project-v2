@@ -14,12 +14,17 @@ const Register = () => {
   const [values, setValues] = useState(initialState);
 
   const handleChange = (event) => {
-    console.log(event.target);
+    const name = event.target.name;
+    const value = event.target.value;
+    setValues({ ...values, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target);
+    const { name, email, password, isMember } = values;
+    if (!email || !password || (!isMember && !name)) {
+      console.log('Please fill out all fields');
+    }
   };
 
   const toggleMember = () => {
@@ -27,7 +32,7 @@ const Register = () => {
   };
 
   return (
-    <Wrapper className="full-page" onSubmit={handleSubmit}>
+    <Wrapper className="full-page" onSubmit={onSubmit}>
       <form className="form">
         <Logo />
         <h3>{values.isMember ? 'Login' : 'Register'}</h3>
@@ -90,7 +95,6 @@ const Wrapper = styled.section`
     max-width: 400px;
     border-top: 5px solid var(--primary-500);
   }
-
   h3 {
     text-align: center;
   }
