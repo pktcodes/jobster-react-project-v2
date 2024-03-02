@@ -1,19 +1,20 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import { Logo } from '../components';
+import { FormRow, Logo } from '../components';
 
 const initialState = {
   name: '',
   email: '',
   password: '',
+  isMember: true,
 };
 
 const Register = () => {
   const [values, setValues] = useState(initialState);
 
   const handleChange = (event) => {
-    console.log(event.target.value);
+    console.log(event.target);
   };
 
   const handleSubmit = (event) => {
@@ -21,54 +22,44 @@ const Register = () => {
     console.log(event.target);
   };
 
+  const toggleMember = () => {
+    setValues({ ...values, isMember: !values.isMember });
+  };
+
   return (
     <Wrapper className="full-page" onSubmit={handleSubmit}>
       <form className="form">
         <Logo />
-        <h3>Register</h3>
-        <div className="form-row">
-          {/* NAME */}
-          <label htmlFor="name" className="form-label">
-            name
-          </label>
-          <input
+        <h3>{values.isMember ? 'Login' : 'Register'}</h3>
+
+        {/* NAME */}
+        {!values.isMember && (
+          <FormRow
+            label="name"
             type="text"
             name="name"
-            id="name"
-            className="form-input"
             value={values.name}
-            onChange={handleChange}
+            handleChange={handleChange}
           />
-        </div>
+        )}
 
         {/* EMAIL */}
-        <div className="form-row">
-          <label htmlFor="email" className="form-label">
-            email
-          </label>
-          <input
-            type="email"
-            name="email"
-            className="form-input"
-            value={values.email}
-            onChange={handleChange}
-          />
-        </div>
+        <FormRow
+          label="email"
+          type="email"
+          name="email"
+          value={values.email}
+          handleChange={handleChange}
+        />
 
         {/* PASSWORD */}
-        <div className="form-row">
-          <label htmlFor="password" className="form-label">
-            password
-          </label>
-          <input
-            type="text"
-            name="password"
-            id="password"
-            className="form-input"
-            value={values.password}
-            onChange={handleChange}
-          />
-        </div>
+        <FormRow
+          label="password"
+          type="password"
+          name="password"
+          value={values.password}
+          handleChange={handleChange}
+        />
 
         {/* SUBMIT */}
         <button type="submit" className="btn btn-block">
@@ -77,7 +68,10 @@ const Register = () => {
 
         {/* LINK */}
         <p>
-          Already a member? <span className="member-btn">Login</span>
+          {values.isMember ? 'Not a member yet?' : 'Already a member?'}
+          <button className="member-btn" onClick={toggleMember}>
+            {values.isMember ? 'Register' : 'Login'}
+          </button>
         </p>
       </form>
     </Wrapper>
