@@ -1,5 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+const rootURL = `https://jobify-prod.herokuapp.com/api/v1/toolkit`;
+
+const postRequestRoute = 'auth/register';
+
+const endpoint = `${rootURL}${postRequestRoute}`;
+
+console.log(endpoint);
+
 const initialState = {
   isLoading: false,
   user: null,
