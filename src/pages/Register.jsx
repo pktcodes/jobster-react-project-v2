@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
@@ -16,6 +16,7 @@ const initialState = {
 const Register = () => {
   const [values, setValues] = useState(initialState);
   const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.userState);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -77,7 +78,7 @@ const Register = () => {
         />
 
         {/* SUBMIT */}
-        <button type="submit" className="btn btn-block">
+        <button type="submit" className="btn btn-block" disabled={isLoading}>
           submit
         </button>
 
