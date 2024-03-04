@@ -1,12 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
-const rootURL = `https://jobify-prod.herokuapp.com/api/v1/toolkit`;
-
-const postRequestRoute = 'auth/register';
-
-const endpoint = `${rootURL}${postRequestRoute}`;
-
-console.log(endpoint);
+import { customFetch } from '../../utils';
 
 const initialState = {
   isLoading: false,
@@ -16,7 +11,12 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   'user/registerUser',
   async (user, thunkAPI) => {
-    return console.log(`Register User: ${JSON.stringify(user)}`);
+    try {
+      const response = await customFetch.post('/auth/testingRegister', user);
+      console.log(response);
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
   }
 );
 
