@@ -1,11 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-import { customFetch } from '../../utils';
+import {
+  addUserToLocalStorage,
+  customFetch,
+  getUserFromLocalStorage,
+} from '../../utils';
 
 const initialState = {
   isLoading: false,
-  user: null,
+  user: getUserFromLocalStorage(),
 };
 
 export const registerUser = createAsyncThunk(
@@ -45,6 +49,7 @@ const userSlice = createSlice({
         const { user } = action.payload;
         state.user = user;
         state.isLoading = false;
+        addUserToLocalStorage(user);
         toast.success(`Welcome to Jobify, ${user.name}`);
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
@@ -58,6 +63,7 @@ const userSlice = createSlice({
         const { user } = action.payload;
         state.user = user;
         state.isLoading = false;
+        addUserToLocalStorage(user);
         toast.success(`Welcome Back, ${user.name}`);
       })
       .addCase(loginUser.rejected, (state, action) => {

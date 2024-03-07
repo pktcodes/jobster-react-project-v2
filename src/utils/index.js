@@ -1,9 +1,13 @@
-import axios from 'axios';
+import customFetch from './customFetch';
+import {
+  addUserToLocalStorage,
+  getUserFromLocalStorage,
+  removeUserFromLocalStorage,
+} from './localStorage';
 
-const rootURL = 'https://jobify-prod.herokuapp.com/api/v1/toolkit';
-
-const customFetch = axios.create({
-  baseURL: rootURL,
-});
-
-export { customFetch };
+export {
+  addUserToLocalStorage,
+  customFetch,
+  getUserFromLocalStorage,
+  removeUserFromLocalStorage,
+};
