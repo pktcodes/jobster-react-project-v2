@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
@@ -15,8 +16,9 @@ const initialState = {
 
 const Register = () => {
   const [values, setValues] = useState(initialState);
+  const { isLoading, user } = useSelector((state) => state.userState);
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.userState);
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -37,6 +39,14 @@ const Register = () => {
     }
     dispatch(registerUser({ name: name, email: email, password: password }));
   };
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }
+  }, [user, navigate]);
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
