@@ -1,9 +1,51 @@
+import { FaAlignLeft, FaCaretDown, FaUserCircle } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import Logo from './Logo';
+
 const Navbar = () => {
+  const { user } = useSelector((state) => state.userState);
+
   return (
     <Wrapper>
-      <h1>Navbar</h1>
+      <div className="nav-center">
+        {/* TOGGLE BUTTON */}
+        <button
+          type="button"
+          className="toggle-btn"
+          onClick={() => console.log('Toggle Sidebar')}
+        >
+          <FaAlignLeft />
+        </button>
+
+        {/* LOGO */}
+        <div>
+          <Logo />
+          <h3 className="logo-text">Dashboard</h3>
+        </div>
+
+        {/* TOGGLE DROPDOWN - LOGOUT */}
+        <div className="btn-container">
+          <button
+            className="btn"
+            onClick={() => console.log('Toggle Logout Dropdown')}
+          >
+            <FaUserCircle />
+            <span>{user?.name}</span>
+            <FaCaretDown />
+          </button>
+          <div className="dropdown show-dropdown">
+            <button
+              type="button"
+              className="dropdown-btn"
+              onClick={() => console.log('Logout User Clicked')}
+            >
+              logout
+            </button>
+          </div>
+        </div>
+      </div>
     </Wrapper>
   );
 };
