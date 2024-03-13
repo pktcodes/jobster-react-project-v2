@@ -17,8 +17,11 @@ function App() {
     <BrowserRouter>
       <ToastContainer position="top-center" />
       <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="register" element={<Register />} />
+        <Route path="*" element={<Error />} />
         <Route
-          path="/"
+          path="/dashboard"
           element={
             <ProtectedRoute>
               <SharedLayout />
@@ -30,9 +33,6 @@ function App() {
           <Route path="add-job" element={<AddJob />} />
           <Route path="profile" element={<Profile />} />
         </Route>
-        <Route path="landing" element={<Landing />} />
-        <Route path="register" element={<Register />} />
-        <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
   );
