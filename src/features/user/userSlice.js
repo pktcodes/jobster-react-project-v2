@@ -5,6 +5,7 @@ import {
   addUserToLocalStorage,
   customFetch,
   getUserFromLocalStorage,
+  removeUserFromLocalStorage,
 } from '../../utils';
 
 const initialState = {
@@ -40,6 +41,12 @@ export const loginUser = createAsyncThunk(
 const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
+  reducers: {
+    logoutUser: (state) => {
+      state.user = null;
+      removeUserFromLocalStorage();
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -72,5 +79,7 @@ const userSlice = createSlice({
       });
   },
 });
+
+export const { logoutUser } = userSlice.actions;
 
 export default userSlice.reducer;

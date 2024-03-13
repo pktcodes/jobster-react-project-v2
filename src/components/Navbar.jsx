@@ -4,13 +4,19 @@ import { FaAlignLeft, FaCaretDown, FaUserCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { toggleSidebar } from '../features/sidebar/sidebarSlice';
+import { closeSidebar, toggleSidebar } from '../features/sidebar/sidebarSlice';
+import { logoutUser } from '../features/user/userSlice';
 import Logo from './Logo';
 
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
   const { user } = useSelector((state) => state.userState);
   const dispatch = useDispatch();
+
+  const handleLogoutUser = () => {
+    dispatch(logoutUser());
+    dispatch(closeSidebar());
+  };
 
   return (
     <Wrapper>
@@ -45,7 +51,7 @@ const Navbar = () => {
             <button
               type="button"
               className="dropdown-btn"
-              onClick={() => console.log('Logout User Clicked')}
+              onClick={handleLogoutUser}
             >
               logout
             </button>
