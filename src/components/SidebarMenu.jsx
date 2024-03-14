@@ -1,9 +1,26 @@
+import { FaTimes } from 'react-icons/fa';
 import styled from 'styled-components';
+
+import { Logo } from '../components';
 
 const SidebarMenu = () => {
   return (
     <Wrapper>
-      <h1>Sidebar Menu</h1>
+      <div className="sidebar-container show-sidebar">
+        <div className="content">
+          <button
+            type="button"
+            className="close-btn"
+            onClick={() => console.log('Close Toggle Clicked')}
+          >
+            <FaTimes />
+          </button>
+          <header>
+            <Logo />
+          </header>
+          <div className="nav-links">Nav Links</div>
+        </div>
+      </div>
     </Wrapper>
   );
 };
@@ -47,6 +64,10 @@ const Wrapper = styled.aside`
     font-size: 2rem;
     color: var(--red-dark);
     cursor: pointer;
+    transition: var(--transition);
+  }
+  .close-btn:hover {
+    color: var(--red-bright);
   }
   .nav-links {
     padding-top: 2rem;
