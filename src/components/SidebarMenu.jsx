@@ -1,17 +1,26 @@
 import { FaTimes } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Logo } from '../components';
+import { closeSidebar } from '../features/sidebar/sidebarSlice';
 
 const SidebarMenu = () => {
+  const { isSidebarOpen } = useSelector((state) => state.sidebarState);
+  const dispatch = useDispatch();
+
   return (
     <Wrapper>
-      <div className="sidebar-container show-sidebar">
+      <div
+        className={
+          isSidebarOpen ? 'sidebar-container show-sidebar' : 'sidebar-container'
+        }
+      >
         <div className="content">
           <button
             type="button"
             className="close-btn"
-            onClick={() => console.log('Close Toggle Clicked')}
+            onClick={() => dispatch(closeSidebar())}
           >
             <FaTimes />
           </button>
