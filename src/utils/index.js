@@ -1,4 +1,5 @@
 import customFetch from './customFetch';
+import links from './links';
 import {
   addUserToLocalStorage,
   getUserFromLocalStorage,
@@ -9,5 +10,6 @@ export {
   addUserToLocalStorage,
   customFetch,
   getUserFromLocalStorage,
+  links,
   removeUserFromLocalStorage,
 };
