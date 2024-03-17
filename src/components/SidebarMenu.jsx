@@ -1,11 +1,9 @@
 import { FaTimes } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Logo } from '../components';
+import { Logo, NavLinks } from '../components';
 import { closeSidebar } from '../features/sidebar/sidebarSlice';
-import { links } from '../utils';
 
 const SidebarMenu = () => {
   const { isSidebarOpen } = useSelector((state) => state.sidebarState);
@@ -29,25 +27,7 @@ const SidebarMenu = () => {
           <header>
             <Logo />
           </header>
-          <div className="nav-links">
-            {links.map((link) => {
-              const { id, icon, text, path } = link;
-              return (
-                <NavLink
-                  to={path}
-                  key={id}
-                  end
-                  className={({ isActive }) => {
-                    return isActive ? 'nav-link active ' : 'nav-link';
-                  }}
-                  onClick={() => dispatch(closeSidebar())}
-                >
-                  <span className="icon">{icon}</span>
-                  <span>{text}</span>
-                </NavLink>
-              );
-            })}
-          </div>
+          <NavLinks />
         </div>
       </div>
     </Wrapper>
