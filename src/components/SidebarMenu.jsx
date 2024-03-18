@@ -2,8 +2,9 @@ import { FaTimes } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { Logo, NavLinks } from '../components';
 import { closeSidebar } from '../features/sidebar/sidebarSlice';
+import Logo from './Logo';
+import NavLinks from './NavLinks';
 
 const SidebarMenu = () => {
   const { isSidebarOpen } = useSelector((state) => state.sidebarState);
