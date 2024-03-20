@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { closeSidebar } from '../features/sidebar/sidebarSlice';
+import Links from './Links';
 import Logo from './Logo';
-import NavLinks from './NavLinks';
 
 const SidebarMenu = () => {
   const { isSidebarOpen } = useSelector((state) => state.sidebarState);
@@ -28,7 +28,7 @@ const SidebarMenu = () => {
           <header>
             <Logo />
           </header>
-          <NavLinks />
+          <Links closeSidebar={closeSidebar} />
         </div>
       </div>
     </Wrapper>
@@ -79,12 +79,12 @@ const Wrapper = styled.aside`
   .close-btn:hover {
     color: var(--red-bright);
   }
-  .nav-links {
+  .links {
     padding-top: 2rem;
     display: flex;
     flex-direction: column;
   }
-  .nav-link {
+  .link {
     display: flex;
     align-items: center;
     color: var(--grey-500);
@@ -92,10 +92,10 @@ const Wrapper = styled.aside`
     text-transform: capitalize;
     transition: var(--transition);
   }
-  .nav-link:hover {
+  .link:hover {
     color: var(--grey-900);
   }
-  .nav-link:hover .icon {
+  .link:hover .icon {
     color: var(--primary-500);
   }
   .icon {

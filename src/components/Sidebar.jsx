@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import Links from './Links';
 import Logo from './Logo';
-import NavLinks from './NavLinks';
 
 const Sidebar = () => {
   const { isSidebarOpen } = useSelector((state) => state.sidebarState);
@@ -18,7 +18,7 @@ const Sidebar = () => {
           <header>
             <Logo />
           </header>
-          <NavLinks />
+          <Links />
         </div>
       </div>
     </Wrapper>
@@ -51,12 +51,12 @@ const Wrapper = styled.aside`
       align-items: center;
       padding-left: 2.5rem;
     }
-    .nav-links {
+    .links {
       padding-top: 2rem;
       display: flex;
       flex-direction: column;
     }
-    .nav-link {
+    .link {
       display: flex;
       align-items: center;
       color: var(--grey-500);
@@ -65,12 +65,12 @@ const Wrapper = styled.aside`
       text-transform: capitalize;
       transition: var(--transition);
     }
-    .nav-link:hover {
+    .link:hover {
       background: var(--grey-50);
       padding-left: 3rem;
       color: var(--grey-900);
     }
-    .nav-link:hover .icon {
+    .link:hover .icon {
       color: var(--primary-500);
     }
     .icon {

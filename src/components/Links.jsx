@@ -1,14 +1,15 @@
+import PropTypes from 'prop-types';
+
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { toggleSidebar } from '../features/sidebar/sidebarSlice';
 import { links } from '../utils';
 
-const NavLinks = () => {
+const Links = ({ closeSidebar }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="nav-links">
+    <div className="links">
       {links.map((link) => {
         const { id, icon, text, path } = link;
         return (
@@ -17,9 +18,11 @@ const NavLinks = () => {
             key={id}
             end
             className={({ isActive }) => {
-              return isActive ? 'nav-link active ' : 'nav-link';
+              return isActive ? 'link active' : 'link';
             }}
-            onClick={() => dispatch(toggleSidebar())}
+            onClick={() => {
+              closeSidebar ? dispatch(closeSidebar()) : null;
+            }}
           >
             <span className="icon">{icon}</span>
             <span>{text}</span>
@@ -30,4 +33,8 @@ const NavLinks = () => {
   );
 };
 
-export default NavLinks;
+Links.propTypes = {
+  closeSidebar: PropTypes.func,
+};
+
+export default Links;
