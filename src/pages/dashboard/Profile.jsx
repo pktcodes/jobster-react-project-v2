@@ -1,21 +1,72 @@
+import { useState } from 'react';
+
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 import { FormRow } from '../../components';
 
 const Profile = () => {
-  const handleSubmit = () => {};
+  const { isLoading, user } = useSelector((state) => state.userState);
+
+  const [userData, setUserData] = useState({
+    name: user?.name || '',
+    lastName: user?.lastName || '',
+    email: user?.email || '',
+    location: user?.location || '',
+  });
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setUserData({ ...userData, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const { name, lastName, email, location } = userData;
+    if (!name || !lastName || !email || !location) {
+      toast.error('please provide all the values');
+      return;
+    }
+  };
 
   return (
     <Wrapper>
       <form className="form" onSubmit={handleSubmit}>
         <h3>profile</h3>
         <div className="form-center">
-          <FormRow label="name" />
-          <FormRow label="last name" />
-          <FormRow label="email" />
-          <FormRow label="location" />
-          <button type="submit" className="btn btn-block">
-            save changes
+          <FormRow
+            label="name"
+            type="text"
+            name="name"
+            value={userData.name}
+            handleChange={handleChange}
+          />
+          <FormRow
+            label="last name"
+            type="text"
+            name="lastName"
+            value={userData.lastName}
+            handleChange={handleChange}
+          />
+          <FormRow
+            label="email"
+            type="email"
+            name="email"
+            value={userData.email}
+            handleChange={handleChange}
+          />
+          <FormRow
+            label="location"
+            type="text"
+            name="location"
+            value={userData.location}
+            handleChange={handleChange}
+          />
+          <button type="submit" className="btn btn-block" disabled={isLoading}>
+            {isLoading ? 'please wait...' : 'save changes'}
           </button>
         </div>
       </form>
