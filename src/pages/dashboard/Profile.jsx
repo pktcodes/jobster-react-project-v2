@@ -1,7 +1,26 @@
 import styled from 'styled-components';
 
+import { FormRow } from '../../components';
+
 const Profile = () => {
-  return <Wrapper>Profile</Wrapper>;
+  const handleSubmit = () => {};
+
+  return (
+    <Wrapper>
+      <form className="form" onSubmit={handleSubmit}>
+        <h3>profile</h3>
+        <div className="form-center">
+          <FormRow label="name" />
+          <FormRow label="last name" />
+          <FormRow label="email" />
+          <FormRow label="location" />
+          <button type="submit" className="btn btn-block">
+            save changes
+          </button>
+        </div>
+      </form>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`
@@ -33,30 +52,11 @@ const Wrapper = styled.section`
     height: 35px;
     margin-top: 1rem;
   }
-  .btn-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 1rem;
-    align-self: flex-end;
-    margin-top: 0.5rem;
-    button {
-      height: 35px;
-    }
-  }
-  .clear-btn {
-    background: var(--grey-500);
-  }
-  .clear-btn:hover {
-    background: var(--black);
-  }
   @media (min-width: 992px) {
     .form-center {
       grid-template-columns: 1fr 1fr;
       align-items: center;
       column-gap: 1rem;
-    }
-    .btn-container {
-      margin-top: 0;
     }
   }
   @media (min-width: 1120px) {
