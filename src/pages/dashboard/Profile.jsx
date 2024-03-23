@@ -6,6 +6,9 @@ import styled from 'styled-components';
 
 import { FormRow } from '../../components';
 
+/* PATCH */
+const endpoint = '/auth/updateUser';
+
 const Profile = () => {
   const { isLoading, user } = useSelector((state) => state.userState);
 
