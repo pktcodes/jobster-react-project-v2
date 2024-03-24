@@ -44,12 +44,17 @@ export const updateUser = createAsyncThunk(
     try {
       const response = await customFetch.patch('/auth/updateUser', user, {
         headers: {
-          Authorization: `Bearer ${thunkAPI.getState().userState.user.token}`,
+          // Authorization: `Bearer ${thunkAPI.getState().userState.user.token}`,
+          Authorization: `Bearer `,
         },
       });
       return response.data;
     } catch (error) {
       console.log(error.response);
+      if (error.response.status === 401) {
+        thunkAPI.dispatch(logoutUser());
+        return thunkAPI.rejectWithValue('Unauthorized! Logging out...');
+      }
       return thunkAPI.rejectWithValue(error.response.data.msg);
     }
   }
@@ -105,7 +110,6 @@ const userSlice = createSlice({
         toast.success('Your profile has been updated!');
       })
       .addCase(updateUser.rejected, (state, action) => {
-        console.log(action);
         state.isLoading = false;
         toast.error(action.payload);
       });
