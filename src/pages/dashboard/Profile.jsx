@@ -1,16 +1,16 @@
 import { useState } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import styled from 'styled-components';
 
 import { FormRow } from '../../components';
+import { updateUser } from '../../features/user/userSlice';
 
-/* PATCH */
-const endpoint = '/auth/updateUser';
+import Wrapper from './wrappers/FormStyles';
 
 const Profile = () => {
   const { isLoading, user } = useSelector((state) => state.userState);
+  const dispatch = useDispatch();
 
   const [userData, setUserData] = useState({
     name: user?.name || '',
@@ -30,9 +30,17 @@ const Profile = () => {
 
     const { name, lastName, email, location } = userData;
     if (!name || !lastName || !email || !location) {
-      toast.error('please provide all the values');
+      toast.error('please fill out all the fields');
       return;
     }
+    dispatch(
+      updateUser({
+        name: name,
+        lastName: lastName,
+        email: email,
+        location: location,
+      })
+    );
   };
 
   return (
@@ -76,51 +84,5 @@ const Profile = () => {
     </Wrapper>
   );
 };
-
-const Wrapper = styled.section`
-  border-radius: var(--borderRadius);
-  width: 100%;
-  background: var(--white);
-  padding: 3rem 2rem 4rem;
-  box-shadow: var(--shadow-2);
-  h3 {
-    margin-top: 0;
-  }
-  .form {
-    margin: 0;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 0;
-    max-width: 100%;
-    width: 100%;
-  }
-  .form-row {
-    margin-bottom: 0;
-  }
-  .form-center {
-    display: grid;
-    row-gap: 0.5rem;
-  }
-  .form-center button {
-    align-self: end;
-    height: 35px;
-    margin-top: 1rem;
-  }
-  @media (min-width: 992px) {
-    .form-center {
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      column-gap: 1rem;
-    }
-  }
-  @media (min-width: 1120px) {
-    .form-center {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-    .form-center button {
-      margin-top: 0;
-    }
-  }
-`;
 
 export default Profile;
