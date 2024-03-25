@@ -9,6 +9,7 @@ const initialState = {
   statusOptions: ['interview', 'declined', 'pending'],
   jobType: 'full-time',
   jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
+  isEditing: false,
 };
 
 const jobSlice = createSlice({

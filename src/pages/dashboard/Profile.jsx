@@ -48,6 +48,7 @@ const Profile = () => {
       <form className="form" onSubmit={handleSubmit}>
         <h3>profile</h3>
         <div className="form-center">
+          {/* NAME */}
           <FormRow
             label="name"
             type="text"
@@ -55,6 +56,7 @@ const Profile = () => {
             value={userData.name}
             handleChange={handleChange}
           />
+          {/* LAST NAME */}
           <FormRow
             label="last name"
             type="text"
