@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { FormRow } from '../../components';
+import { FormRow, FormRowSelect } from '../../components';
 
 import Wrapper from './wrappers/FormStyles';
 
@@ -63,28 +63,21 @@ const AddJob = () => {
             handleChange={handleInputChange}
           />
           {/* STATUS */}
-          <div className="form-row">
-            <label htmlFor="status" className="form-label">
-              status
-            </label>
-            <select
-              name="status"
-              id="status"
-              className="form-select"
-              onChange={handleInputChange}
-            >
-              {statusOptions.map((item, index) => {
-                return (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-
+          <FormRowSelect
+            label="status"
+            name="status"
+            handleChange={handleInputChange}
+            list={statusOptions}
+            value={status}
+          />
           {/* JOB TYPE */}
-
+          <FormRowSelect
+            label="job type"
+            name="jobType"
+            handleChange={handleInputChange}
+            list={jobTypeOptions}
+            value={jobType}
+          />
           {/* BUTTONS */}
           <div className="button-container">
             <button
