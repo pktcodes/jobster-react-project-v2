@@ -19,10 +19,14 @@ const jobSlice = createSlice({
     updateInput: (state, action) => {
       const { name, value } = action.payload;
       state[name] = value;
+      return;
+    },
+    clearInputs: () => {
+      return initialState;
     },
   },
 });
 
-export const { updateInput } = jobSlice.actions;
+export const { updateInput, clearInputs } = jobSlice.actions;
 
 export default jobSlice.reducer;
