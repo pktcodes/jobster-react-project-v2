@@ -1,22 +1,22 @@
 import PropTypes from 'prop-types';
 
-const FormRowSelect = ({ label, name, handleChange, list, value }) => {
+const FormRowSelect = ({ label, name, handleChange, value, list }) => {
   return (
     <div className="form-row">
       <label htmlFor={name} className="form-label">
         {label}
       </label>
       <select
-        name={name}
         id={name}
+        name={name}
         value={value}
         className="form-select"
         onChange={handleChange}
       >
-        {list.map((item, index) => {
+        {list.map((optionValue, index) => {
           return (
-            <option key={index} value={item}>
-              {item}
+            <option key={index} value={optionValue}>
+              {optionValue}
             </option>
           );
         })}
@@ -29,8 +29,8 @@ FormRowSelect.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
   handleChange: PropTypes.func,
-  list: PropTypes.array,
   value: PropTypes.string,
+  list: PropTypes.array,
 };
 
 export default FormRowSelect;
