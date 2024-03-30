@@ -2,7 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { FormRow, FormRowSelect } from '../../components';
-import { clearInputs, updateInput } from '../../features/job/jobSlice';
+import {
+  clearInputs,
+  createJob,
+  updateInput,
+} from '../../features/job/jobSlice';
 
 import Wrapper from './wrappers/FormStyles';
 
@@ -27,12 +31,22 @@ const AddJob = () => {
   };
 
   const handleSubmit = (event) => {
-    event.preventdefault();
+    event.preventDefault();
 
     if (!position || !company || !jobLocation) {
       toast.error('please fill out all the fields');
       return;
     }
+
+    dispatch(
+      createJob({
+        position: position,
+        company: company,
+        jobLocation: jobLocation,
+        status: status,
+        jobType: jobType,
+      })
+    );
   };
 
   return (
@@ -60,7 +74,7 @@ const AddJob = () => {
           <FormRow
             label="job location"
             type="text"
-            name="job-location"
+            name="jobLocation"
             value={jobLocation}
             handleChange={handleChange}
           />
