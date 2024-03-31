@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -22,6 +23,7 @@ const AddJob = () => {
     jobType,
     isEditing,
   } = useSelector((state) => state.jobState);
+  const { user } = useSelector((state) => state.userState);
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
@@ -48,6 +50,10 @@ const AddJob = () => {
       })
     );
   };
+
+  useEffect(() => {
+    dispatch(updateInput({ name: 'jobLocation', value: user?.location }));
+  }, [dispatch, jobLocation, user?.location]);
 
   return (
     <Wrapper>
