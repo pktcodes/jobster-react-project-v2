@@ -13,7 +13,6 @@ const registerUserThunk = async (url, user, thunkAPI) => {
 const loginUserThunk = async (url, user, thunkAPI) => {
   try {
     const response = await customFetch.post(url, user);
-    console.log(response);
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.msg);
