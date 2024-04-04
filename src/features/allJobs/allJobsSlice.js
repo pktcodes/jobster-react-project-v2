@@ -6,6 +6,9 @@ import { logoutUser } from '../user/userSlice';
 
 const initialState = {
   isLoading: false,
+  jobs: [],
+  numOfPages: null,
+  totalJobs: null,
 };
 
 export const getAllJobs = createAsyncThunk(
@@ -17,7 +20,6 @@ export const getAllJobs = createAsyncThunk(
           Authorization: `Bearer ${thunkAPI.getState().userState.user.token}`,
         },
       });
-      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error.response);
@@ -38,8 +40,12 @@ const allJobsSlice = createSlice({
       .addCase(getAllJobs.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getAllJobs.fulfilled, (state) => {
+      .addCase(getAllJobs.fulfilled, (state, action) => {
+        const { jobs, numOfPages, totalJobs } = action.payload;
         state.isLoading = false;
+        state.jobs = jobs;
+        state.numOfPages = numOfPages;
+        state.totalJobs = totalJobs;
       })
       .addCase(getAllJobs.rejected, (state, action) => {
         state.isLoading = false;
