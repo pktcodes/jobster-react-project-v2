@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { getAllJobs } from '../features/allJobs/allJobsSlice';
 import Job from './Job';
+import Loading from './Loading';
 
 const JobsContainer = () => {
   const { isLoading, jobs } = useSelector((state) => state.allJobsState);
@@ -17,7 +18,7 @@ const JobsContainer = () => {
   if (isLoading) {
     return (
       <Wrapper>
-        <div className="loading loading-center"></div>;
+        <Loading center />
       </Wrapper>
     );
   }
