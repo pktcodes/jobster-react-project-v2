@@ -27,7 +27,9 @@ export const getAllJobs = createAsyncThunk(
         thunkAPI.dispatch(logoutUser());
         return thunkAPI.rejectWithValue('Unauthorized! Logging out...');
       }
-      return thunkAPI.rejectWithValue(error.response.data.msg);
+      return thunkAPI.rejectWithValue(
+        error.response.data.msg || 'There was an error'
+      );
     }
   }
 );
