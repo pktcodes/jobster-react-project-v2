@@ -1,5 +1,8 @@
+import { FaBriefcase, FaCalendarAlt, FaLocationArrow } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+import JobInfo from './JobInfo';
 
 const Job = (job) => {
   const { _id, company, position, status, jobType, jobLocation, createdAt } =
@@ -7,6 +10,7 @@ const Job = (job) => {
 
   return (
     <Wrapper>
+      {/* HEADER */}
       <header>
         <div className="main-icon">{company.charAt(0)}</div>
         <div className="info">
@@ -16,8 +20,13 @@ const Job = (job) => {
       </header>
       <div className="content">
         <div className="content-center">
-          <h5>More Content</h5>
+          {/* INFO */}
+          <JobInfo icon={<FaLocationArrow />} text={jobLocation} />
+          <JobInfo icon={<FaCalendarAlt />} text={createdAt} />
+          <JobInfo icon={<FaBriefcase />} text={jobType} />
           <div className={`status ${status}`}>{status}</div>
+
+          {/* ACTION BUTTONS */}
           <footer>
             <div className="actions">
               <Link
@@ -47,7 +56,6 @@ const Wrapper = styled.article`
   display: grid;
   grid-template-rows: 1fr auto;
   box-shadow: var(--shadow-2);
-
   header {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--grey-100);
