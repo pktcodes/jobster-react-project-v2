@@ -1,7 +1,10 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { FaBriefcase, FaCalendarAlt, FaLocationArrow } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+dayjs.extend(advancedFormat);
 
 import JobInfo from './JobInfo';
 
@@ -9,7 +12,7 @@ const Job = (job) => {
   const { _id, company, position, status, jobType, jobLocation, createdAt } =
     job;
 
-  const formatCreatedDate = moment(createdAt).format('MMM Do, YYYY');
+  const formatCreatedDate = dayjs(createdAt).format('MMM Do, YYYY');
 
   return (
     <Wrapper>
