@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const rootURL = 'https://jobify-prod.herokuapp.com/api/v1/toolkit';
+const rootURL = 'https://redux-toolkit-jobster-api-server.onrender.com/api/v1';
 
 const customFetch = axios.create({
   baseURL: rootURL,
