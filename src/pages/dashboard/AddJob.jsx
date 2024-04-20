@@ -6,6 +6,7 @@ import { FormRow, FormRowSelect } from '../../components';
 import {
   clearInputs,
   createJob,
+  editJob,
   updateInput,
 } from '../../features/job/jobSlice';
 
@@ -22,6 +23,7 @@ const AddJob = () => {
     jobTypeOptions,
     jobType,
     isEditing,
+    editJobId,
   } = useSelector((state) => state.jobState);
   const { user } = useSelector((state) => state.userState);
   const dispatch = useDispatch();
@@ -39,7 +41,21 @@ const AddJob = () => {
       toast.error('please fill out all the fields');
       return;
     }
-
+    if (isEditing) {
+      dispatch(
+        editJob({
+          jobId: editJobId,
+          job: {
+            position,
+            company,
+            jobLocation,
+            status,
+            jobType,
+          },
+        })
+      );
+      return;
+    }
     dispatch(
       createJob({
         position: position,

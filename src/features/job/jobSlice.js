@@ -52,11 +52,24 @@ export const deleteJob = createAsyncThunk(
       thunkAPI.dispatch(getAllJobs());
       return response.data;
     } catch (error) {
-      if (error.response.status === 401) {
-        thunkAPI.dispatch(logoutUser());
-        return thunkAPI.rejectWithValue('Unauthorized! Logging out...');
-      }
       thunkAPI.dispatch(hideLoading());
+      return thunkAPI.rejectWithValue(error.response.data.msg);
+    }
+  }
+);
+
+export const editJob = createAsyncThunk(
+  'job/editJob',
+  async ({ jobId, job }, thunkAPI) => {
+    try {
+      const response = await customFetch.patch(`/jobs/${jobId}`, job, {
+        headers: {
+          Authorization: `Bearer ${thunkAPI.getState().userState.user.token}`,
+        },
+      });
+      thunkAPI.dispatch(clearInputs());
+      return response.data;
+    } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.msg);
     }
   }
@@ -94,10 +107,21 @@ const jobSlice = createSlice({
         state.isLoading = false;
         toast.error(action.payload);
       })
-      .addCase(deleteJob.fulfilled, (state, action) => {
-        toast.success(action.payload || 'Job successfully deleted!');
+      .addCase(deleteJob.fulfilled, () => {
+        toast.success('Job successfully deleted!');
       })
       .addCase(deleteJob.rejected, (state, action) => {
+        toast.error(action.payload);
+      })
+      .addCase(editJob.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editJob.fulfilled, (state) => {
+        state.isLoading = false;
+        toast.success('Job successfully updated!');
+      })
+      .addCase(editJob.rejected, (state, action) => {
+        state.isLoading = false;
         toast.error(action.payload);
       });
   },
