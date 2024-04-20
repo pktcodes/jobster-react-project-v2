@@ -90,6 +90,23 @@ const Register = () => {
           {isLoading ? 'loading...' : 'submit'}
         </button>
 
+        {/* TEST USER */}
+        <button
+          type="button"
+          className="btn btn-block btn-hipster"
+          disabled={isLoading}
+          onClick={() =>
+            dispatch(
+              loginUser({
+                email: 'testUser@test.com',
+                password: 'secret',
+              })
+            )
+          }
+        >
+          demo app
+        </button>
+
         {/* LINK */}
         <p>
           {values.isMember ? 'Not a member yet?' : 'Already a member?'}
