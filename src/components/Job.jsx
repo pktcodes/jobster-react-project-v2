@@ -1,16 +1,20 @@
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { FaBriefcase, FaCalendarAlt, FaLocationArrow } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-dayjs.extend(advancedFormat);
-
+import { deleteJob } from '../features/job/jobSlice';
 import JobInfo from './JobInfo';
+
+dayjs.extend(advancedFormat);
 
 const Job = (job) => {
   const { _id, company, position, status, jobType, jobLocation, createdAt } =
     job;
+
+  const dispatch = useDispatch();
 
   const formatCreatedDate = dayjs(createdAt).format('MMM Do, YYYY');
 
@@ -44,7 +48,7 @@ const Job = (job) => {
               </Link>
               <button
                 className="btn delete-btn"
-                onClick={() => console.log('Delete Button')}
+                onClick={() => dispatch(deleteJob(_id))}
               >
                 delete
               </button>

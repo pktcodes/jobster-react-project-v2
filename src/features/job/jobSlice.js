@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { customFetch, getUserFromLocalStorage } from '../../utils';
+import { getAllJobs, hideLoading, showLoading } from '../allJobs/allJobsSlice';
 import { logoutUser } from '../user/userSlice';
 
 const initialState = {
@@ -37,6 +38,29 @@ export const createJob = createAsyncThunk(
   }
 );
 
+export const deleteJob = createAsyncThunk(
+  'job/deleteJob',
+  async (jobId, thunkAPI) => {
+    thunkAPI.dispatch(showLoading());
+    try {
+      const response = await customFetch.delete(`/jobs/${jobId}`, {
+        headers: {
+          Authorization: `Bearer ${thunkAPI.getState().userState.user.token}`,
+        },
+      });
+      thunkAPI.dispatch(getAllJobs());
+      return response.data;
+    } catch (error) {
+      if (error.response.status === 401) {
+        thunkAPI.dispatch(logoutUser());
+        return thunkAPI.rejectWithValue('Unauthorized! Logging out...');
+      }
+      thunkAPI.dispatch(hideLoading());
+      return thunkAPI.rejectWithValue(error.response.data.msg);
+    }
+  }
+);
+
 const jobSlice = createSlice({
   name: 'job',
   initialState: initialState,
@@ -63,6 +87,12 @@ const jobSlice = createSlice({
       })
       .addCase(createJob.rejected, (state, action) => {
         state.isLoading = false;
+        toast.error(action.payload);
+      })
+      .addCase(deleteJob.fulfilled, (state, action) => {
+        toast.success(action.payload);
+      })
+      .addCase(deleteJob.rejected, (state, action) => {
         toast.error(action.payload);
       });
   },
