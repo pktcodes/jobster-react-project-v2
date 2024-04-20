@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { deleteJob } from '../features/job/jobSlice';
+import { deleteJob, setEditJob } from '../features/job/jobSlice';
 import JobInfo from './JobInfo';
 
 dayjs.extend(advancedFormat);
@@ -42,7 +42,18 @@ const Job = (job) => {
               <Link
                 to="/dashboard/add-job"
                 className="btn edit-btn"
-                onClick={() => console.log('Edit Button')}
+                onClick={() =>
+                  dispatch(
+                    setEditJob({
+                      editJobId: _id,
+                      position,
+                      company,
+                      jobLocation,
+                      status,
+                      jobType,
+                    })
+                  )
+                }
               >
                 edit
               </Link>

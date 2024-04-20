@@ -15,6 +15,7 @@ const initialState = {
   jobType: 'full-time',
   jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
   isEditing: false,
+  editJobId: '',
 };
 
 export const createJob = createAsyncThunk(
@@ -75,6 +76,10 @@ const jobSlice = createSlice({
         jobLocation: getUserFromLocalStorage()?.location || '',
       };
     },
+    setEditJob: (state, action) => {
+      const { payload } = action;
+      return { ...state, isEditing: true, ...payload };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -90,7 +95,7 @@ const jobSlice = createSlice({
         toast.error(action.payload);
       })
       .addCase(deleteJob.fulfilled, (state, action) => {
-        toast.success(action.payload);
+        toast.success(action.payload || 'Job successfully deleted!');
       })
       .addCase(deleteJob.rejected, (state, action) => {
         toast.error(action.payload);
@@ -98,6 +103,6 @@ const jobSlice = createSlice({
   },
 });
 
-export const { updateInput, clearInputs } = jobSlice.actions;
+export const { updateInput, clearInputs, setEditJob } = jobSlice.actions;
 
 export default jobSlice.reducer;

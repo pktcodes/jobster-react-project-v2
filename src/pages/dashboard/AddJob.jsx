@@ -52,8 +52,10 @@ const AddJob = () => {
   };
 
   useEffect(() => {
-    dispatch(updateInput({ name: 'jobLocation', value: user?.location }));
-  }, [dispatch, jobLocation, user?.location]);
+    if (!isEditing) {
+      dispatch(updateInput({ name: 'jobLocation', value: user?.location }));
+    }
+  }, [dispatch, user?.location, isEditing]);
 
   return (
     <Wrapper>
