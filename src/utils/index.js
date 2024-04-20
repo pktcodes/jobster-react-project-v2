@@ -1,3 +1,4 @@
+import authHeader from './authHeader';
 import customFetch from './customFetch';
 import links from './links';
 import {
@@ -12,4 +13,5 @@ export {
   getUserFromLocalStorage,
   links,
   removeUserFromLocalStorage,
+  authHeader,
 };
