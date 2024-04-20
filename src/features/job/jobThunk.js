@@ -3,13 +3,17 @@ import { getAllJobs, hideLoading, showLoading } from '../allJobs/allJobsSlice';
 import { logoutUser } from '../user/userSlice';
 import { clearInputs } from './jobSlice';
 
+const authHeader = (thunkAPI) => {
+  return {
+    headers: {
+      Authorization: `Bearer ${thunkAPI.getState().userState.user.token}`,
+    },
+  };
+};
+
 export const createJobThunk = async (job, thunkAPI) => {
   try {
-    const response = await customFetch.post('/jobs', job, {
-      headers: {
-        Authorization: `Bearer ${thunkAPI.getState().userState.user.token}`,
-      },
-    });
+    const response = await customFetch.post('/jobs', job, authHeader(thunkAPI));
     thunkAPI.dispatch(clearInputs());
     return response.data;
   } catch (error) {
