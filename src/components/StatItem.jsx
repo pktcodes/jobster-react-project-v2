@@ -1,4 +1,18 @@
-import styled from 'styled-components'
+import PropTypes from 'prop-types';
+
+import styled from 'styled-components';
+
+const StatItem = ({ count, icon, color, background, title }) => {
+  return (
+    <Wrapper color={color} background={background}>
+      <header>
+        <span className="count">{count}</span>
+        <span className="icon">{icon}</span>
+      </header>
+      <h5>{title}</h5>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.article`
   padding: 2rem;
@@ -26,7 +40,7 @@ const Wrapper = styled.article`
   .icon {
     width: 70px;
     height: 60px;
-    background: ${(props) => props.bcg};
+    background: ${(props) => props.background};
     border-radius: var(--borderRadius);
     display: flex;
     align-items: center;
@@ -36,6 +50,14 @@ const Wrapper = styled.article`
       color: ${(props) => props.color};
     }
   }
-`
+`;
 
-export default Wrapper
+StatItem.propTypes = {
+  count: PropTypes.number,
+  icon: PropTypes.element,
+  color: PropTypes.string,
+  background: PropTypes.string,
+  title: PropTypes.string,
+};
+
+export default StatItem;
