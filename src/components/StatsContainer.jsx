@@ -1,6 +1,7 @@
 import { FaBug, FaCalendarCheck, FaSuitcaseRolling } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { StyleSheetManager } from 'styled-components';
+import isValidProp from '@emotion/is-prop-valid';
 
 import StatItem from './StatItem';
 
@@ -34,7 +35,15 @@ const StatsContainer = () => {
   return (
     <Wrapper>
       {defaultStats.map((item, index) => {
-        return <StatItem key={index} {...item} />;
+        return (
+          <StyleSheetManager
+            enableVendorPrefixes
+            shouldForwardProp={(propName) => isValidProp(propName)}
+            key={index}
+          >
+            <StatItem key={index} {...item} />
+          </StyleSheetManager>
+        );
       })}
     </Wrapper>
   );
