@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { customFetch } from '../../utils';
+import { logoutUser } from '../user/userSlice';
 
 const initialState = {
   isLoading: false,
@@ -16,6 +17,10 @@ export const getStats = createAsyncThunk(
       const response = await customFetch.get('/jobs/stats');
       return response.data;
     } catch (error) {
+      if (error.response.status === 401) {
+        thunkAPI.dispatch(logoutUser());
+        return thunkAPI.rejectWithValue('Unauthorized! Logging out...');
+      }
       return thunkAPI.rejectWithValue(error.response.data.msg);
     }
   }
