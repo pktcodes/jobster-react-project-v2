@@ -4,11 +4,20 @@ import { toast } from 'react-toastify';
 import { customFetch } from '../../utils';
 import { logoutUser } from '../user/userSlice';
 
+const initialFiltersState = {
+  search: '',
+  searchStatus: 'all',
+  searchType: 'all',
+  sort: 'latest',
+  sortOptions: ['latest', 'oldest', 'a-z', 'z-a'],
+};
+
 const initialState = {
   isLoading: false,
   jobs: [],
   numOfPages: null,
   totalJobs: null,
+  ...initialFiltersState,
 };
 
 export const getAllJobs = createAsyncThunk(
