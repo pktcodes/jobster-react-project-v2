@@ -6,8 +6,10 @@ import { logoutUser } from '../user/userSlice';
 
 const initialFiltersState = {
   search: '',
-  searchStatus: 'all',
-  searchType: 'all',
+  status: 'all',
+  statusOptions: ['all', 'interview', 'declined', 'pending'],
+  jobType: 'all',
+  jobTypeOptions: ['all', 'full-time', 'part-time', 'remote', 'internship'],
   sort: 'latest',
   sortOptions: ['latest', 'oldest', 'a-z', 'z-a'],
 };
