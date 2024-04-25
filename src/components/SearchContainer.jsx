@@ -1,6 +1,7 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import { clearInputs, updateInput } from '../features/allJobs/allJobsSlice';
 import FormRow from './FormRow';
 import FormRowSelect from './FormRowSelect';
 
@@ -15,12 +16,13 @@ const SearchContainer = () => {
     sort,
     sortOptions,
   } = useSelector((state) => state.allJobsState);
+  const dispatch = useDispatch();
 
-  const handleInputChange = (event) => {
-    console.log(event.currentTarget);
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    dispatch(updateInput({ name, value }));
   };
-
-  const handleClearFilters = () => {};
 
   return (
     <Wrapper>
@@ -33,7 +35,7 @@ const SearchContainer = () => {
             type="text"
             name="search"
             value={search}
-            handleChange={handleInputChange}
+            handleChange={handleChange}
           />
           {/* STATUS */}
           <FormRowSelect
@@ -41,7 +43,7 @@ const SearchContainer = () => {
             name="status"
             value={status}
             list={statusOptions}
-            handleChange={handleInputChange}
+            handleChange={handleChange}
           />
           {/* JOB TYPE */}
           <FormRowSelect
@@ -49,14 +51,14 @@ const SearchContainer = () => {
             name="jobType"
             value={jobType}
             list={jobTypeOptions}
-            handleChange={handleInputChange}
+            handleChange={handleChange}
           />
           {/* SORT */}
           <FormRowSelect
             label="sort"
             name="sort"
             value={sort}
-            handleChange={handleInputChange}
+            handleChange={handleChange}
             list={sortOptions}
           />
           {/* CLEAR FILTERS */}
@@ -64,7 +66,7 @@ const SearchContainer = () => {
             type="button"
             disabled={isLoading}
             className="btn btn-block btn-danger"
-            onClick={handleClearFilters}
+            onClick={() => dispatch(clearInputs())}
           >
             clear filters
           </button>
