@@ -8,7 +8,9 @@ import Job from './Job';
 import Loading from './Loading';
 
 const JobsContainer = () => {
-  const { isLoading, jobs } = useSelector((state) => state.allJobsState);
+  const { isLoading, jobs, totalJobs } = useSelector(
+    (state) => state.allJobsState
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,7 +35,9 @@ const JobsContainer = () => {
 
   return (
     <Wrapper>
-      <h5>Jobs Info</h5>
+      <h5>
+        {totalJobs} {jobs.length > 1 ? 'jobs' : 'job'} found
+      </h5>
       <div className="jobs">
         {jobs.map((job) => {
           return <Job key={job._id} {...job} />;

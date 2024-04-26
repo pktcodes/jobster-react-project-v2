@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux';
+
 import {
   JobsContainer,
   PaginationContainer,
@@ -5,11 +7,13 @@ import {
 } from '../../components';
 
 const AllJobs = () => {
+  const { numOfPages } = useSelector((state) => state.allJobsState);
+
   return (
     <>
       <SearchContainer />
       <JobsContainer />
-      <PaginationContainer />
+      {numOfPages > 1 && <PaginationContainer />}
     </>
   );
 };
