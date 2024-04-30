@@ -1,24 +1,30 @@
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { updatePage } from '../features/allJobs/allJobsSlice';
 
 const PaginationContainer = () => {
   const { numOfPages, page } = useSelector((state) => state.allJobsState);
+  const dispatch = useDispatch();
 
   const pages = Array.from({ length: numOfPages }, (_, index) => {
     return index + 1;
   });
 
   const handlePrevPage = () => {
-    console.log('Clicked Previous Page');
+    let pageNumber = page - 1;
+    if (pageNumber < 1) {
+      pageNumber = numOfPages;
+    }
+    dispatch(updatePage(pageNumber));
   };
 
   const handleNextPage = () => {
-    console.log('Clicked Next page');
-  };
-
-  const handlePageChange = () => {
-    console.log('Change the Page');
+    let pageNumber = page + 1;
+    if (pageNumber > numOfPages) {
+      pageNumber = 1;
+    }
+    dispatch(updatePage(pageNumber));
   };
 
   return (
@@ -32,9 +38,9 @@ const PaginationContainer = () => {
           return (
             <button
               type="button"
-              className={pageNumber === page ? 'page-btn active' : 'page-btn'}
               key={pageNumber}
-              onClick={handlePageChange}
+              className={pageNumber === page ? 'page-btn active' : 'page-btn'}
+              onClick={() => dispatch(updatePage(pageNumber))}
             >
               {pageNumber}
             </button>
