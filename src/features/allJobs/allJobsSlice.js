@@ -26,8 +26,10 @@ const initialState = {
 export const getAllJobs = createAsyncThunk(
   'allJobs/getAllJobs',
   async (_, thunkAPI) => {
+    const url = '/jobs?status=interview&page=3&sort=z-a';
+
     try {
-      const response = await customFetch.get('/jobs', {
+      const response = await customFetch.get(url, {
         headers: {
           Authorization: `Bearer ${thunkAPI.getState().userState.user.token}`,
         },
