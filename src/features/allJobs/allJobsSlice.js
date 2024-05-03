@@ -29,12 +29,20 @@ export const getAllJobs = createAsyncThunk(
     const { search, status, jobType, sort, page } =
       thunkAPI.getState().allJobsState;
 
-    const url = `/jobs?search=${search}&status=${status}&jobType=${jobType}&sort=${sort}&page=${page}`;
+    /* Alternative */
+    // const url = `/jobs?search=${search}&status=${status}&jobType=${jobType}&sort=${sort}&page=${page}`;
 
     try {
-      const response = await customFetch.get(url, {
+      const response = await customFetch.get('/jobs', {
         headers: {
           Authorization: `Bearer ${thunkAPI.getState().userState.user.token}`,
+        },
+        params: {
+          search: search,
+          status: status,
+          jobType: jobType,
+          sort: sort,
+          page: page,
         },
       });
       return response.data;
