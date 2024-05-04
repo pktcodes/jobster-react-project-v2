@@ -71,6 +71,7 @@ const allJobsSlice = createSlice({
     },
     updateInput: (state, action) => {
       const { name, value } = action.payload;
+      state.page = 1;
       state[name] = value;
     },
     clearInputs: (state) => {

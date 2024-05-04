@@ -21,6 +21,7 @@ const SearchContainer = () => {
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    // if (isLoading) return;
     dispatch(updateInput({ name, value }));
   };
 
