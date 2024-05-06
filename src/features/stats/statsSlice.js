@@ -6,7 +6,7 @@ import { logoutUser } from '../user/userSlice';
 
 const initialState = {
   isLoading: false,
-  stats: '',
+  stats: {},
   monthlyApplications: [],
 };
 
@@ -29,6 +29,11 @@ export const getStats = createAsyncThunk(
 const statsSlice = createSlice({
   name: 'stats',
   initialState: initialState,
+  reducers: {
+    clearStatsState: () => {
+      return { ...initialState };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getStats.pending, (state) => {
@@ -46,5 +51,7 @@ const statsSlice = createSlice({
       });
   },
 });
+
+export const { clearStatsState } = statsSlice.actions;
 
 export default statsSlice.reducer;

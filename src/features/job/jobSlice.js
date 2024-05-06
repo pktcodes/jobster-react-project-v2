@@ -41,6 +41,9 @@ const jobSlice = createSlice({
       const { payload } = action;
       return { ...state, isEditing: true, ...payload };
     },
+    clearJobState: () => {
+      return { ...initialState };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -75,6 +78,7 @@ const jobSlice = createSlice({
   },
 });
 
-export const { updateInput, clearInputs, setEditJob } = jobSlice.actions;
+export const { updateInput, clearInputs, setEditJob, clearJobState } =
+  jobSlice.actions;
 
 export default jobSlice.reducer;

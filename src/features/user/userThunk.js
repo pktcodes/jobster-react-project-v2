@@ -1,4 +1,7 @@
 import { customFetch } from '../../utils';
+import { clearJobsState } from '../allJobs/allJobsSlice';
+import { clearJobState } from '../job/jobSlice';
+import { clearStatsState } from '../stats/statsSlice';
 import { logoutUser } from './userSlice';
 
 const registerUserThunk = async (url, user, thunkAPI) => {
@@ -32,4 +35,16 @@ const updateUserThunk = async (url, user, thunkAPI) => {
   }
 };
 
-export { loginUserThunk, registerUserThunk, updateUserThunk };
+const clearStoreThunk = async (message, thunkAPI) => {
+  try {
+    thunkAPI.dispatch(logoutUser(message));
+    thunkAPI.dispatch(clearJobsState());
+    thunkAPI.dispatch(clearJobState());
+    thunkAPI.dispatch(clearStatsState());
+    return Promise.resolve();
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+export { clearStoreThunk, loginUserThunk, registerUserThunk, updateUserThunk };

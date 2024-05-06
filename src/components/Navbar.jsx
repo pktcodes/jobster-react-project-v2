@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { closeSidebar, toggleSidebar } from '../features/sidebar/sidebarSlice';
-import { logoutUser } from '../features/user/userSlice';
+import { clearStore } from '../features/user/userSlice';
 import Logo from './Logo';
 
 const Navbar = () => {
@@ -14,7 +14,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const handleLogoutUser = () => {
-    dispatch(logoutUser('Logging Out...'));
+    dispatch(clearStore('Logging Out...'));
     dispatch(closeSidebar());
   };
 
