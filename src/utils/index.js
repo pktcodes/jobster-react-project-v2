@@ -1,5 +1,5 @@
 import authHeader from './authHeader';
-import customFetch from './customFetch';
+import customFetch, { validateAuthorization } from './customFetch';
 import links from './links';
 import {
   addUserToLocalStorage,
@@ -14,4 +14,5 @@ export {
   links,
   removeUserFromLocalStorage,
   authHeader,
+  validateAuthorization,
 };

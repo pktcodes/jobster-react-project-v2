@@ -1,4 +1,4 @@
-import { customFetch } from '../../utils';
+import { customFetch, validateAuthorization } from '../../utils';
 import { clearJobsState } from '../allJobs/allJobsSlice';
 import { clearJobState } from '../job/jobSlice';
 import { clearStatsState } from '../stats/statsSlice';
@@ -27,11 +27,7 @@ const updateUserThunk = async (url, user, thunkAPI) => {
     const response = await customFetch.patch(url, user);
     return response.data;
   } catch (error) {
-    if (error.response.status === 401) {
-      thunkAPI.dispatch(logoutUser());
-      return thunkAPI.rejectWithValue('Unauthorized! Logging out...');
-    }
-    return thunkAPI.rejectWithValue(error.response.data.msg);
+    return validateAuthorization(error, thunkAPI);
   }
 };
 
