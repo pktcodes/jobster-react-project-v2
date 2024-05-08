@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -18,10 +20,11 @@ const SearchContainer = () => {
   } = useSelector((state) => state.allJobsState);
   const dispatch = useDispatch();
 
+  const [localSearch, setLocalSearch] = useState('');
+
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    // if (isLoading) return;
     dispatch(updateInput({ name, value }));
   };
 
@@ -35,8 +38,8 @@ const SearchContainer = () => {
             label="search"
             type="text"
             name="search"
-            value={search}
-            handleChange={handleChange}
+            value={localSearch}
+            handleChange={(event) => setLocalSearch(event.target.value)}
           />
           {/* STATUS */}
           <FormRowSelect
