@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -10,7 +10,6 @@ import FormRowSelect from './FormRowSelect';
 const SearchContainer = () => {
   const {
     isLoading,
-    search,
     status,
     statusOptions,
     jobType,
@@ -28,6 +27,27 @@ const SearchContainer = () => {
     dispatch(updateInput({ name, value }));
   };
 
+  const handleClearFilters = () => {
+    setLocalSearch('');
+    dispatch(clearInputs());
+  };
+
+  const debounce = () => {
+    let timeoutId;
+    return (event) => {
+      setLocalSearch(event.target.value);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        dispatch(
+          updateInput({ name: event.target.name, value: event.target.value })
+        );
+      }, 1000);
+      console.log(timeoutId);
+    };
+  };
+
+  const optimizedDebounce = useMemo(() => debounce(), []);
+
   return (
     <Wrapper>
       <form className="form">
@@ -39,7 +59,7 @@ const SearchContainer = () => {
             type="text"
             name="search"
             value={localSearch}
-            handleChange={(event) => setLocalSearch(event.target.value)}
+            handleChange={optimizedDebounce}
           />
           {/* STATUS */}
           <FormRowSelect
@@ -70,7 +90,7 @@ const SearchContainer = () => {
             type="button"
             disabled={isLoading}
             className="btn btn-block btn-danger"
-            onClick={() => dispatch(clearInputs())}
+            onClick={handleClearFilters}
           >
             clear filters
           </button>
